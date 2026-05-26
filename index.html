@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8">
+    <title>Abhimo Technologies — Innovative Banking Solutions</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta name="keywords" content="Abhimo Technologies, Banking Software, IT Solutions, India">
+    <meta name="description"
+        content="Abhimo Technologies Private Limited — A Leading Banking Software Product Company in India. Innovative Technological Solutions.">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Tailwind CSS (CDN for Single File Deployment) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#030712', // Very dark blue/black
+                        darker: '#000000',
+                        primary: '#00E5FF', // Neon Cyan
+                        secondary: '#B537F2', // Neon Purple
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        tech: ['Orbitron', 'sans-serif'],
+                    },
+                    animation: {
+                        blob: "blob 7s infinite",
+                        fadeIn: "fadeIn 2s ease-in forwards",
+                        float: "float 6s ease-in-out infinite",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -50px) scale(1.1)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.9)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" }
+                        },
+                        fadeIn: {
+                            "0%": { opacity: "0" },
+                            "100%": { opacity: "1" }
+                        },
+                        float: {
+                            "0%, 100%": { transform: "translateY(0)" },
+                            "50%": { transform: "translateY(-20px)" }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Advanced CSS -->
+    <style>
+        body {
+            background-color: #030712;
+            color: #e5e7eb;
+            overflow-x: hidden;
+        }
+
+        /* Prevent scroll during intro */
+        body.intro-active {
+            overflow: hidden;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 229, 255, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 229, 255, 0.1), 0 0 15px rgba(181, 55, 242, 0.1);
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #00E5FF, #B537F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Intro Sequence Overlay */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.2s ease;
+        }
+
+        #intro-overlay.fade-out {
+            transform: scale(1.15);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #B537F2;
+        }
+
+        /* Hide details marker */
+        details>summary {
+            list-style: none;
+        }
+
+        details>summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="intro-active">
+
+    <!-- ===================== CINEMATIC INTRO ===================== -->
+    <div id="intro-overlay">
+        <!-- New Logo Animation Video -->
+        <video id="intro-video" class="w-full h-full object-contain md:object-cover" autoplay playsinline>
+            <source src="intro.mp4" type="video/mp4">
+        </video>
+
+        <!-- Premium Skip Button -->
+        <button id="intro-skip"
+            class="absolute bottom-8 right-8 z-10 flex items-center gap-2 px-6 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/60 font-tech text-xs tracking-[0.2em] uppercase cursor-pointer transition-all hover:bg-white/10 hover:text-white hover:border-primary/50 opacity-0 animate-[fadeIn_1s_ease_2s_forwards]">
+            Skip <i class="fas fa-chevron-right text-[10px]"></i>
+        </button>
+    </div>
+    <!-- ===================== END INTRO ===================== -->
+
+
+    <!-- ===================== MAIN WEBSITE ===================== -->
+    <div id="main-site" class="relative min-h-screen">
+
+        <!-- Ambient Animated Background -->
+        <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
+            <div
+                class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-primary/10 blur-[120px] mix-blend-screen animate-blob">
+            </div>
+            <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-secondary/10 blur-[120px] mix-blend-screen animate-blob"
+                style="animation-delay: 2s;"></div>
+            <div class="absolute top-[40%] left-[20%] w-[30vw] h-[30vw] rounded-full bg-blue-600/10 blur-[100px] mix-blend-screen animate-blob"
+                style="animation-delay: 4s;"></div>
+            <div
+                class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03]">
+            </div>
+        </div>
+
+        <!-- Navbar -->
+        <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-24">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="flex items-center gap-3 group">
+                            <!-- Fallback for logo if img is missing -->
+                            <div
+                                class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary p-[1px] group-hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-all">
+                                <div class="w-full h-full bg-dark rounded-xl flex items-center justify-center">
+                                    <span
+                                        class="font-tech font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">A</span>
+                                </div>
+                            </div>
+                            <span class="font-display font-bold text-xl tracking-wide hidden sm:block">ABHIMO</span>
+                        </a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-8">
+                            <a href="#"
+                                class="text-white hover:text-primary transition-colors px-3 py-2 rounded-md font-medium text-sm">Home</a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md font-medium text-sm">About</a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md font-medium text-sm">Services</a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white transition-colors px-3 py-2 rounded-md font-medium text-sm">Products</a>
+                            <div class="relative group">
+                                <button
+                                    class="text-gray-400 group-hover:text-white transition-colors px-3 py-2 rounded-md font-medium text-sm flex items-center gap-1">
+                                    More <i class="fas fa-chevron-down text-[10px]"></i>
+                                </button>
+                                <div
+                                    class="absolute left-0 mt-2 w-48 rounded-xl glass shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform translate-y-2 group-hover:translate-y-0">
+                                    <a href="#"
+                                        class="block px-4 py-3 text-sm text-gray-300 hover:text-primary hover:bg-white/5 rounded-t-xl">Events</a>
+                                    <a href="#"
+                                        class="block px-4 py-3 text-sm text-gray-300 hover:text-primary hover:bg-white/5">Gallery</a>
+                                    <a href="#"
+                                        class="block px-4 py-3 text-sm text-gray-300 hover:text-primary hover:bg-white/5 rounded-b-xl">Blog</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a href="#"
+                            class="hidden md:inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-full text-dark bg-gradient-to-r from-primary to-secondary hover:scale-105 hover:shadow-[0_0_20px_rgba(181,55,242,0.4)] transition-all">
+                            Apply Now
+                        </a>
+                        <button class="md:hidden text-gray-300 hover:text-white p-2">
+                            <i class="fas fa-bars text-2xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="text-center lg:text-left reveal">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-primary/30 mb-6">
+                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                            <span class="text-xs font-tech tracking-wider text-primary">INNOVATING THE FUTURE</span>
+                        </div>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-bold leading-tight mb-6">
+                            Welcome To <br>
+                            <span class="text-gradient">Abhimo Technologies</span>
+                        </h1>
+                        <p class="text-lg text-gray-400 mb-8 max-w-2xl mx-auto lg:mx-0 font-light">
+                            A Leading Banking Software Product Company in India. We Create Innovative Technological
+                            Solutions to Help Businesses Grow & Adapt to Ever-evolving Digital Landscapes.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#"
+                                class="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-full text-dark bg-gradient-to-r from-primary to-secondary hover:scale-105 hover:shadow-[0_0_30px_rgba(0,229,255,0.3)] transition-all">
+                                Explore Products
+                            </a>
+                            <a href="#"
+                                class="inline-flex items-center justify-center px-8 py-3.5 border border-white/20 text-base font-semibold rounded-full text-white bg-white/5 hover:bg-white/10 hover:border-white/40 backdrop-blur-md transition-all">
+                                Apply For Internship
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- 3D/Floating Hero Element -->
+                    <div class="relative hidden lg:block reveal animate-float">
+                        <div class="relative w-full aspect-square max-w-lg mx-auto">
+                            <!-- Abstract UI Representation -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-full blur-3xl">
+                            </div>
+                            <div
+                                class="absolute top-10 left-10 w-full h-full glass rounded-3xl border-primary/30 transform rotate-3">
+                            </div>
+                            <div
+                                class="absolute top-0 left-0 w-full h-full bg-[#0a101e] rounded-3xl border border-white/10 p-6 shadow-2xl transform -rotate-2 overflow-hidden flex flex-col justify-between">
+                                <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+                                    <div class="font-tech text-primary font-bold">ABHIMO SYSTEM</div>
+                                    <div class="flex gap-2">
+                                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                                    </div>
+                                </div>
+                                <div class="space-y-4">
+                                    <div class="h-4 w-3/4 bg-white/5 rounded-full"></div>
+                                    <div class="h-4 w-1/2 bg-white/5 rounded-full"></div>
+                                    <div class="h-4 w-5/6 bg-white/5 rounded-full"></div>
+                                </div>
+                                <div class="mt-8 grid grid-cols-2 gap-4">
+                                    <div
+                                        class="h-24 rounded-xl bg-gradient-to-br from-primary/20 to-transparent border border-primary/30 flex items-center justify-center">
+                                        <i class="fas fa-chart-pie text-3xl text-primary"></i>
+                                    </div>
+                                    <div
+                                        class="h-24 rounded-xl bg-gradient-to-br from-secondary/20 to-transparent border border-secondary/30 flex items-center justify-center">
+                                        <i class="fas fa-shield-alt text-3xl text-secondary"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="py-24 relative z-10 bg-darker/50 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="order-2 lg:order-1 reveal relative">
+                        <div class="absolute inset-0 bg-secondary/20 blur-[80px] rounded-full"></div>
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop"
+                            alt="Technology Concept"
+                            class="rounded-2xl relative z-10 border border-white/10 shadow-2xl object-cover h-[400px] w-full grayscale hover:grayscale-0 transition-all duration-700">
+                    </div>
+                    <div class="order-1 lg:order-2 reveal">
+                        <h4 class="text-secondary font-tech tracking-widest text-sm mb-2 uppercase">About Us</h4>
+                        <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">Who We Are</h2>
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            Abhimo Technologies Private Limited is a leading Indian banking software company. We deliver
+                            specialized development, consulting, and outsourcing services.
+                        </p>
+                        <p class="text-gray-400 mb-8 leading-relaxed">
+                            Our team creates innovative solutions to help businesses thrive in the digital landscape. We
+                            build lasting partnerships with clients founded on trust, expertise, and excellence.
+                        </p>
+                        <a href="#"
+                            class="inline-flex items-center gap-2 text-primary hover:text-white font-medium transition-colors">
+                            Discover our journey <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services/Products Section -->
+        <div class="py-24 relative z-10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h4 class="text-primary font-tech tracking-widest text-sm mb-2 uppercase">Our Products</h4>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">What We Can Do For You</h2>
+                    <p class="text-gray-400">
+                        Comprehensive software products tailored for modern financial institutions. Explore our suite of
+                        cutting-edge banking applications.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Service Card 1 -->
+                    <div class="glass-card rounded-2xl p-8 reveal text-center group">
+                        <div
+                            class="w-16 h-16 mx-auto rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors border border-white/10 group-hover:border-primary/50">
+                            <i
+                                class="fas fa-laptop-code text-2xl text-gray-300 group-hover:text-primary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Software Products</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Industry-leading software solutions to
+                            streamline your business processes.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="glass-card rounded-2xl p-8 reveal text-center group transition-delay-100">
+                        <div
+                            class="w-16 h-16 mx-auto rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-secondary/20 transition-colors border border-white/10 group-hover:border-secondary/50">
+                            <i
+                                class="fas fa-headset text-2xl text-gray-300 group-hover:text-secondary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">IT Support System</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">24/7 technical assistance and application
+                            support for your business.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="glass-card rounded-2xl p-8 reveal text-center group transition-delay-200">
+                        <div
+                            class="w-16 h-16 mx-auto rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors border border-white/10 group-hover:border-primary/50">
+                            <i
+                                class="fas fa-database text-2xl text-gray-300 group-hover:text-primary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Data Management</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Efficient data processing, extraction, and
+                            migration services.</p>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div class="glass-card rounded-2xl p-8 reveal text-center group transition-delay-300">
+                        <div
+                            class="w-16 h-16 mx-auto rounded-xl bg-white/5 flex items-center justify-center mb-6 group-hover:bg-secondary/20 transition-colors border border-white/10 group-hover:border-secondary/50">
+                            <i
+                                class="fas fa-graduation-cap text-2xl text-gray-300 group-hover:text-secondary transition-colors"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4">Internships</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed">Opportunities for students to gain real-world
+                            experience and expertise.</p>
+                    </div>
+                </div>
+
+                <div class="mt-12 text-center reveal">
+                    <a href="#"
+                        class="inline-flex items-center justify-center px-8 py-3 border border-white/20 text-sm font-semibold rounded-full text-white hover:bg-white/10 backdrop-blur-md transition-all">
+                        View All Products
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="py-24 relative z-10 bg-darker/50 border-y border-white/5">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                    <h4 class="text-secondary font-tech tracking-widest text-sm mb-2 uppercase">Why Choose Us</h4>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold mb-6">Because You Deserve the Best</h2>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="reveal">
+                        <div class="text-primary text-4xl mb-4"><i class="fas fa-trophy"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Expertise</h3>
+                        <p class="text-gray-400 text-sm">Deep knowledge and hands-on experience applied to every
+                            project.</p>
+                    </div>
+                    <div class="reveal transition-delay-100">
+                        <div class="text-secondary text-4xl mb-4"><i class="fas fa-gem"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Quality</h3>
+                        <p class="text-gray-400 text-sm">Strict quality standards to deliver robust, high-performing
+                            solutions.</p>
+                    </div>
+                    <div class="reveal transition-delay-200">
+                        <div class="text-primary text-4xl mb-4"><i class="fas fa-stopwatch"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Timely Delivery</h3>
+                        <p class="text-gray-400 text-sm">Respecting your time and ensuring projects meet agreed
+                            timelines.</p>
+                    </div>
+                    <div class="reveal transition-delay-300">
+                        <div class="text-secondary text-4xl mb-4"><i class="fas fa-hands-helping"></i></div>
+                        <h3 class="text-lg font-bold mb-2">Dedicated Support</h3>
+                        <p class="text-gray-400 text-sm">Continuous, reliable assistance for smooth system operations.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="py-24 relative z-10">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16 reveal">
+                    <h4 class="text-primary font-tech tracking-widest text-sm mb-2 uppercase">FAQ</h4>
+                    <h2 class="text-3xl md:text-5xl font-display font-bold">Your Questions, Answered</h2>
+                </div>
+
+                <div class="space-y-4 reveal">
+                    <!-- FAQ 1 -->
+                    <details class="group glass rounded-xl" open>
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                            What services does Abhimo Technologies offer?
+                            <span class="transition group-open:rotate-180 text-gray-500">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </summary>
+                        <div class="text-gray-400 px-6 pb-6 animate-fadeIn text-sm leading-relaxed">
+                            Abhimo Technologies offers a comprehensive range of IT services including software
+                            development, web development, mobile app development, AI solutions, and digital marketing
+                            services.
+                        </div>
+                    </details>
+                    <!-- FAQ 2 -->
+                    <details class="group glass rounded-xl">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                            How can I request a quote for my project?
+                            <span class="transition group-open:rotate-180 text-gray-500">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </summary>
+                        <div class="text-gray-400 px-6 pb-6 text-sm leading-relaxed">
+                            You can request a quote by emailing us at support@abhimo.com, or calling us directly at +91
+                            7829738999. Our team will get back to you promptly.
+                        </div>
+                    </details>
+                    <!-- FAQ 3 -->
+                    <details class="group glass rounded-xl">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                            Do you offer internship opportunities?
+                            <span class="transition group-open:rotate-180 text-gray-500">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </summary>
+                        <div class="text-gray-400 px-6 pb-6 text-sm leading-relaxed">
+                            Yes, we regularly offer internship opportunities for students and fresh graduates. Please
+                            check our Careers page for current openings or send your resume to support@abhimo.com.
+                        </div>
+                    </details>
+                    <!-- FAQ 4 -->
+                    <details class="group glass rounded-xl">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none p-6 text-lg hover:text-primary transition-colors">
+                            What is your typical project timeline?
+                            <span class="transition group-open:rotate-180 text-gray-500">
+                                <i class="fas fa-chevron-down"></i>
+                            </span>
+                        </summary>
+                        <div class="text-gray-400 px-6 pb-6 text-sm leading-relaxed">
+                            Project timelines vary depending on complexity and scope. Simple projects may take 2-4
+                            weeks, while more complex ones can take 3-6 months. We provide detailed timelines during our
+                            initial consultation.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Section -->
+        <div class="py-20 relative z-10">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div
+                    class="glass-card rounded-3xl p-10 md:p-16 text-center reveal border-primary/30 relative overflow-hidden">
+                    <!-- Deco -->
+                    <div
+                        class="absolute top-[-50px] right-[-50px] w-32 h-32 bg-primary/20 blur-2xl rounded-full pointer-events-none">
+                    </div>
+                    <div
+                        class="absolute bottom-[-50px] left-[-50px] w-32 h-32 bg-secondary/20 blur-2xl rounded-full pointer-events-none">
+                    </div>
+
+                    <h2 class="text-3xl font-display font-bold mb-4">Stay Ahead of the Curve</h2>
+                    <p class="text-gray-400 mb-8 max-w-xl mx-auto">Get the latest updates, industry news, and insights
+                        from Abhimo Technologies directly in your inbox.</p>
+
+                    <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto relative z-10">
+                        <input type="email" name="email"
+                            class="flex-grow bg-white/5 border border-white/10 rounded-full px-6 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-primary transition-colors"
+                            placeholder="Enter your email address" required>
+                        <button type="submit"
+                            class="px-8 py-3 rounded-full text-dark font-semibold bg-gradient-to-r from-primary to-secondary hover:scale-105 transition-transform whitespace-nowrap">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="py-12 relative z-10 border-t border-white/5 bg-darker/80">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl font-display font-bold">Find Us Here</h2>
+                </div>
+                <div class="rounded-2xl overflow-hidden glass border border-white/10 h-[400px]">
+                    <iframe
+                        class="w-full h-full grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3459.7637676428158!2d74.85658237445571!3d12.821637818149604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbcbd7b4612c38d%3A0x2216130d125531f5!2sAbhimo%20Techonologies%20Private%20Limited!5e1!3m2!1sen!2sin!4v1749633471288!5m2!1sen!2sin"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="pt-20 pb-10 relative z-10 bg-darker border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                    <div>
+                        <a href="index.html" class="flex items-center gap-2 mb-6">
+                            <div
+                                class="w-8 h-8 rounded bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+                                <span class="font-tech font-bold text-dark text-sm">A</span>
+                            </div>
+                            <span class="font-display font-bold text-lg tracking-wide">ABHIMO</span>
+                        </a>
+                        <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                            Creating Innovative and Impactful Technological Solutions Since 2019. Your trusted digital
+                            partner.
+                        </p>
+                        <div class="flex gap-4">
+                            <a href="#"
+                                class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-all"><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-all"><i
+                                    class="fab fa-twitter"></i></a>
+                            <a href="#"
+                                class="w-10 h-10 rounded-full glass flex items-center justify-center text-gray-400 hover:text-primary hover:border-primary transition-all"><i
+                                    class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-bold mb-6">Quick Links</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Our
+                                    Services</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Our
+                                    Products</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">About
+                                    Us</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Careers
+                                    at Abhimo</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-bold mb-6">Services</h4>
+                        <ul class="space-y-3">
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Software
+                                    Development</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Data
+                                    Management</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">IT
+                                    Consulting</a></li>
+                            <li><a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors">Customer
+                                    Support</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="text-white font-bold mb-6">Contact Info</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 text-sm text-gray-500">
+                                <i class="fas fa-map-marker-alt text-primary mt-1"></i>
+                                <span>Mangaluru, Karnataka, India</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-gray-500">
+                                <i class="fas fa-envelope text-primary"></i>
+                                <a href="mailto:support@abhimo.com"
+                                    class="hover:text-white transition-colors">support@abhimo.com</a>
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-gray-500">
+                                <i class="fas fa-phone text-primary"></i>
+                                <a href="tel:+917829738999" class="hover:text-white transition-colors">+91
+                                    7829738999</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-gray-600 text-sm text-center md:text-left">
+                        &copy; 2026 Abhimo Technologies Private Limited. All rights reserved.
+                    </p>
+                    <div class="flex gap-6 text-sm text-gray-600">
+                        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating Chat Widget -->
+        <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+            <!-- Chat Box (Hidden by default) -->
+            <div id="chat-box"
+                class="mb-4 w-80 glass-card rounded-2xl overflow-hidden opacity-0 translate-y-4 pointer-events-none transition-all duration-300 transform origin-bottom-right">
+                <div
+                    class="bg-gradient-to-r from-primary/20 to-secondary/20 p-4 border-b border-white/10 flex justify-between items-center backdrop-blur-xl">
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-dark font-bold text-xs">
+                            A</div>
+                        <div>
+                            <div class="text-white text-sm font-bold">Abhimo Support</div>
+                            <div class="text-green-400 text-xs flex items-center gap-1"><span
+                                    class="w-2 h-2 rounded-full bg-green-400"></span> Online</div>
+                        </div>
+                    </div>
+                    <button id="close-chat" class="text-gray-400 hover:text-white"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="p-5 bg-darker/90">
+                    <div class="bg-white/10 rounded-2xl rounded-tl-none p-3 text-sm text-gray-200 inline-block mb-4">
+                        Hi there! 👋 How can we help you today?
+                    </div>
+                    <a href="https://wa.me/+91782973899" target="_blank"
+                        class="block w-full py-3 text-center rounded-xl font-bold text-dark bg-gradient-to-r from-primary to-primary/80 hover:shadow-[0_0_15px_rgba(0,229,255,0.4)] transition-all text-sm">
+                        <i class="fab fa-whatsapp mr-2 text-lg align-middle"></i> Start Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Toggle Button -->
+            <button id="chat-toggle"
+                class="w-14 h-14 rounded-full bg-gradient-to-r from-primary to-secondary flex items-center justify-center text-dark shadow-[0_0_20px_rgba(0,229,255,0.3)] hover:scale-110 transition-transform">
+                <i class="fas fa-comment-dots text-2xl"></i>
+            </button>
+        </div>
+
+    </div><!-- END #main-site -->
+
+    <!-- ===================== SCRIPTS ===================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // --- 1. INTRO ENGINE (Cinematic Fade) ---
+            const overlay = document.getElementById('intro-overlay');
+            const video = document.getElementById('intro-video');
+            const skipBtn = document.getElementById('intro-skip');
+            const body = document.body;
+
+            let introDone = false;
+
+            // Check session storage
+            if (sessionStorage.getItem('abhimo_intro_done_v2')) {
+                overlay.style.display = 'none';
+                body.classList.remove('intro-active');
+                introDone = true;
+                initScrollAnimations();
+            }
+
+            function triggerReveal() {
+                if (introDone) return;
+                introDone = true;
+                sessionStorage.setItem('abhimo_intro_done_v2', '1');
+
+                // Cinematic Fade Out
+                overlay.classList.add('fade-out');
+
+                // Allow scrolling
+                setTimeout(() => {
+                    body.classList.remove('intro-active');
+                    overlay.style.display = 'none';
+                    initScrollAnimations(); // Trigger element animations on main site
+                }, 1200);
+            }
+
+            if (!introDone) {
+                skipBtn.addEventListener('click', triggerReveal);
+                video.addEventListener('ended', triggerReveal);
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === 'Escape') triggerReveal();
+                });
+                // Fallback
+                setTimeout(triggerReveal, 15000);
+            }
+
+            // --- 2. SCROLL REVEAL ANIMATIONS ---
+            function initScrollAnimations() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.15
+                };
+
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('active');
+                            observer.unobserve(entry.target); // Run once
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.reveal').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+
+            // --- 3. NAVBAR SCROLL EFFECT ---
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('bg-dark/80', 'backdrop-blur-lg', 'border-b', 'border-white/10', 'shadow-lg');
+                    navbar.classList.remove('py-4');
+                } else {
+                    navbar.classList.remove('bg-dark/80', 'backdrop-blur-lg', 'border-b', 'border-white/10', 'shadow-lg');
+                    navbar.classList.add('py-4');
+                }
+            });
+
+            // --- 4. CHAT WIDGET TOGGLE ---
+            const chatToggle = document.getElementById('chat-toggle');
+            const chatBox = document.getElementById('chat-box');
+            const closeChatBtn = document.getElementById('close-chat');
+
+            function toggleChat() {
+                const isHidden = chatBox.classList.contains('opacity-0');
+                if (isHidden) {
+                    chatBox.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+                    chatToggle.innerHTML = '<i class="fas fa-times text-2xl"></i>';
+                } else {
+                    chatBox.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+                    chatToggle.innerHTML = '<i class="fas fa-comment-dots text-2xl"></i>';
+                }
+            }
+
+            chatToggle.addEventListener('click', toggleChat);
+            closeChatBtn.addEventListener('click', toggleChat);
+
+            // --- 5. NEWSLETTER SWEETALERT ---
+            const form = document.getElementById("newsletter-form");
+            if (form) {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    // Mocking successful submission for frontend demo
+                    Swal.fire({
+                        icon: "success",
+                        title: "Subscribed!",
+                        text: "Welcome to the Abhimo tech inner circle.",
+                        background: '#0a101e',
+                        color: '#fff',
+                        confirmButtonColor: '#00E5FF'
+                    });
+                    form.reset();
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
